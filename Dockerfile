@@ -9,11 +9,7 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 配置中国镜像源并安装必要软件
-RUN cd /etc/yum.repos.d/ && \
-    sed -i -e 's|^mirrorlist=|#mirrorlist=|g' \
-           -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.tuna.tsinghua.edu.cn/rockylinux|g' \
-           /etc/yum.repos.d/rocky*.repo && \
-    dnf clean all && \
+RUN dnf clean all && \
     dnf makecache && \
     dnf update -y && \
     dnf install -y epel-release && \
