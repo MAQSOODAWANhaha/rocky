@@ -8,8 +8,11 @@ LABEL maintainer="zhanglei520sl@126.com" \
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 安装必要软件包
-RUN dnf update -y && \
+# 配置中国镜像源并安装必要软件
+RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/rocky.repo && \
+    sed -i 's|^#baseurl=http://dl.rockylinux.org/$releasever/BaseOS|baseurl=https://mirrors.tuna.tsinghua.edu.cn/rockylinux/$releasever/BaseOS|g' /etc/yum.repos.d/rocky.repo && \
+    sed -i 's|^#baseurl=http://dl.rockylinux.org/$releasever/AppStream|baseurl=https://mirrors.tuna.tsinghua.edu.cn/rockylinux/$releasever/AppStream|g' /etc/yum.repos.d/rocky.repo && \
+    dnf update -y && \
     dnf install -y epel-release && \
     dnf install -y procps iproute dumb-init && \
     dnf clean all && \
