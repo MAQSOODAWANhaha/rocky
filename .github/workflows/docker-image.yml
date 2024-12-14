@@ -24,6 +24,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Login to Alibaba Cloud
+        run: echo ${{ secrets.ALIYUN_PASSWORD }} | docker login --username ${{ secrets.ALIYUN_USERNAME }} --password-stdin registry.cn-hangzhou.aliyuncs.com
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -33,5 +36,6 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/rocky:9.3
+            registry.cn-hangzhou.aliyuncs.com/luciferzl/rocky:9.3
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/rocky:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/rocky:buildcache,mode=max
