@@ -11,12 +11,12 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN dnf update -y && \
-    dnf install -y epel-release dump-init && \
+    dnf install -y epel-release tini && \
     dnf install -y procps curl iproute && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
 # 设置容器启动命令
-ENTRYPOINT ["dump-init"]
+ENTRYPOINT ["tini","--"]
 
 CMD ["bash"]
