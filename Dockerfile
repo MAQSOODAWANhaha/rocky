@@ -8,8 +8,9 @@ LABEL maintainer="zhanglei520sl@126.com" \
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 配置中国镜像源并安装必要软件
 RUN dnf clean all && \
+    sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/rocky*.repo && \
+    sed -i 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.aliyun.com/rockylinux|g' /etc/yum.repos.d/rocky*.repo && \
     dnf makecache && \
     dnf update -y && \
     dnf install -y epel-release && \
