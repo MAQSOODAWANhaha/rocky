@@ -17,6 +17,7 @@ RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/rocky.repo && \
     sed -i 's|^#baseurl=http://download.rockylinux.org/pub/rocky/9/AppStream|baseurl=https://mirrors.tuna.tsinghua.edu.cn/rockylinux/9/AppStream|g' /etc/yum.repos.d/rocky.repo && \
     dnf update -y && \
     dnf install -y epel-release dump-init && \
+    dnf install -y procps curl iproute && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
