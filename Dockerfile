@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 安装必要软件包
 RUN dnf update -y && \
     dnf install -y epel-release && \
-    dnf install -y procps curl iproute dumb-init && \
+    dnf install -y procps iproute dumb-init && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
