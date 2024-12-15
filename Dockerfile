@@ -14,7 +14,7 @@ RUN dnf clean all && \
     dnf makecache && \
     dnf update -y && \
     dnf install -y epel-release && \
-    dnf install -y procps iproute dumb-init && \
+    dnf install -y procps-ng iproute dumb-init supervisor && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
